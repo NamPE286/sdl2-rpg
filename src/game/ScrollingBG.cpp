@@ -4,7 +4,7 @@ ScrollingBG::ScrollingBG(std::shared_ptr<Image> img) : img(img) {
 	rect = img->rect;
 }
 
-void ScrollingBG::update() {
+void ScrollingBG::update(float deltaTime) {
 	img->update(&rect);
 }
 

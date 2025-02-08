@@ -9,7 +9,7 @@ class ScrollingBG {
 	SDL_Rect rect = { 0, 0, 0, 0 };
 public:
 	ScrollingBG(std::shared_ptr<Image> img);
-	void update();
+	void update(float deltaTime);
 	void on_key_down(SDL_Event& event);
 	void on_key_up(SDL_Event& event);
 };

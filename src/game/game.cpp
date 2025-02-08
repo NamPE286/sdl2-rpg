@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <string>
 #include <chrono>
+#include <iostream>
 #include "../common.h"
 
 Game::Game() {
@@ -33,7 +34,12 @@ Game::~Game() {
 };
 
 void Game::update(float deltaTime) {
+	SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0xFF);
+	SDL_RenderClear(renderer);
 
+
+
+	SDL_RenderPresent(renderer);
 }
 
 void Game::draw() {
@@ -63,9 +69,6 @@ void Game::init_game_loop() {
 
 			input_handler(&event);
 		}
-
-		SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0xFF);
-		SDL_RenderClear(renderer);
 
 		update(deltaTime);
 		draw();

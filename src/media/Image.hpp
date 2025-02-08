@@ -9,7 +9,7 @@ class Image {
 public:
 	SDL_Texture* texture = nullptr;
 
-	Image(SDL_Renderer* renderer, std::string filePath, int x = 0, int y = 0, int w = NULL, int h = NULL);
+	Image(SDL_Renderer* renderer, std::string filePath, int x = 0, int y = 0, int w = NULL, int h = NULL, float scale = 1.0f);
 	~Image();
 	void update();
 };

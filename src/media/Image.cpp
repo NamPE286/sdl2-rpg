@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <SDL2/SDL_image.h>
 
-Image::Image(SDL_Renderer* renderer, std::string filePath, int x, int y, int w, int h): renderer(renderer) {
+Image::Image(SDL_Renderer* renderer, std::string filePath, int x, int y, int w, int h, float scale): renderer(renderer) {
 	texture = IMG_LoadTexture(renderer, filePath.c_str());
 
 	if (texture == nullptr) {
@@ -17,6 +17,9 @@ Image::Image(SDL_Renderer* renderer, std::string filePath, int x, int y, int w, 
 	else {
 		rect.w = w, rect.h = h;
 	}
+
+	rect.w = static_cast<int>((float)rect.w * scale);
+	rect.h = static_cast<int>((float)rect.h * scale);
 }
 
 Image::~Image() {

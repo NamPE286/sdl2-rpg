@@ -52,8 +52,12 @@ void Game::input_handler(SDL_Event& event) {
 	if (event.type == SDL_QUIT) {
 		stop_game_loop();
 	}
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
-		stop_game_loop();
+	else if (event.type == SDL_KEYDOWN) {
+		if (event.key.keysym.sym == SDLK_ESCAPE) {
+			stop_game_loop();
+		}
+
+
 	}
 }
 

@@ -7,9 +7,12 @@ class Game {
 	SDL_Renderer* renderer = nullptr;
 	bool running = true;
 
-	void update();
+	void update(float deltaTime);
 	void draw();
+	void input_handler(SDL_Event* event);
 public:
 	Game();
 	~Game();
+	void init_game_loop();
+	void stop_game_loop();
 };

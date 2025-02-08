@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include <stdexcept>
 #include <string>
+#include <chrono>
 #include "../common.h"
 
 Game::Game() {
@@ -22,14 +23,6 @@ Game::Game() {
 };
 
 Game::~Game() {
-
-};
-
-void Game::update() {
-
-}
-
-void Game::draw() {
 	SDL_DestroyWindow(window);
 	window = nullptr;
 
@@ -37,6 +30,52 @@ void Game::draw() {
 	renderer = nullptr;
 
 	SDL_Quit();
+};
+
+void Game::update(float deltaTime) {
+
 }
 
+void Game::draw() {
+
+}
+
+void Game::input_handler(SDL_Event* event) {
+
+}
+
+void Game::init_game_loop() {
+	float deltaTime = 0.0f;
+	
+	running = true;
+
+	while (running) {
+		SDL_Event event;
+		auto frameStartTime = std::chrono::high_resolution_clock::now();
+
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_QUIT) {
+				stop_game_loop();
+			}
+			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+				stop_game_loop();
+			}
+
+			input_handler(&event);
+		}
+
+		SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0xFF);
+		SDL_RenderClear(renderer);
+
+		update(deltaTime);
+		draw();
+
+		auto frameStopTime = std::chrono::high_resolution_clock::now();
+		deltaTime = std::chrono::duration<float, std::chrono::milliseconds::period>(frameStopTime - frameStartTime).count();
+	}
+}
+
+void Game::stop_game_loop() {
+	running = false;
+}
 

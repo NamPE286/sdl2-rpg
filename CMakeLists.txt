@@ -7,7 +7,7 @@ endif()
 
 project(main)
 
-add_executable(main "src/main.cpp"  "src/common.h")
+add_executable(main "src/main.cpp"  "src/common.h" "src/game/Game.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET main PROPERTY CXX_STANDARD 20)

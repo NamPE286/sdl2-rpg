@@ -1,6 +1,8 @@
 ﻿#include <iostream>
+#include "game/game.hpp"
 
-int main() {
-	std::cout << "Hello CMake." << std::endl;
+int SDL_main(int argc, char* argv[]) {
+	Game game;
+
 	return 0;
 }

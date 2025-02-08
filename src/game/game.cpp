@@ -36,14 +36,10 @@ Game::~Game() {
 void Game::update(float deltaTime) {
 	SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0xFF);
 	SDL_RenderClear(renderer);
-
-
-
-	SDL_RenderPresent(renderer);
 }
 
 void Game::draw() {
-
+	SDL_RenderPresent(renderer);
 }
 
 void Game::input_handler(SDL_Event* event) {

@@ -26,6 +26,11 @@ Image::~Image() {
 	SDL_DestroyTexture(texture);
 }
 
-void Image::update() {
-	SDL_RenderCopy(renderer, texture, NULL, &rect);
+void Image::update(SDL_Rect* pos) {
+	if (pos == nullptr) {
+		SDL_RenderCopy(renderer, texture, NULL, &rect);
+	}
+	else {
+		SDL_RenderCopy(renderer, texture, NULL, pos);
+	}
 }

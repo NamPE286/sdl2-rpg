@@ -3,6 +3,8 @@
 #include <string>
 #include <chrono>
 #include <iostream>
+#include <memory>
+#include "../media/Image.hpp"
 #include "../common.h"
 
 Game::Game() {
@@ -22,12 +24,10 @@ Game::Game() {
 		throw std::runtime_error("Failed to create renderer. SDL error: " + std::string(SDL_GetError()));
 	}
 
-	img = new Image(renderer, "assets/anime.png", 0, 0, 0, 0, 1);
+	bg = new ScrollingBG(std::shared_ptr<Image>(new Image(renderer, "assets/anime.png", 0, 0, 0, 0, 1)));
 };
 
 Game::~Game() {
-	delete img;
-
 	SDL_DestroyWindow(window);
 	window = nullptr;
 
@@ -41,7 +41,7 @@ void Game::update(float deltaTime) {
 	SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0xFF);
 	SDL_RenderClear(renderer);
 
-	img->update();
+	bg->update();
 }
 
 void Game::render() {

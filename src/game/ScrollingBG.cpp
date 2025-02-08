@@ -11,3 +11,7 @@ void ScrollingBG::update() {
 void ScrollingBG::on_key_down(SDL_Event& event) {
 
 }
+
+void ScrollingBG::on_key_up(SDL_Event& event) {
+
+}

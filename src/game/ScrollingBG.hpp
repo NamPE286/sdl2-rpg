@@ -11,4 +11,5 @@ public:
 	ScrollingBG(std::shared_ptr<Image> img);
 	void update();
 	void on_key_down(SDL_Event& event);
+	void on_key_up(SDL_Event& event);
 };

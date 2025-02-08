@@ -49,15 +49,23 @@ void Game::render() {
 }
 
 void Game::input_handler(SDL_Event& event) {
-	if (event.type == SDL_QUIT) {
+	switch (event.type) {
+	case SDL_QUIT:
 		stop_game_loop();
-	}
-	else if (event.type == SDL_KEYDOWN) {
+
+		break;
+	case SDL_KEYDOWN:
 		if (event.key.keysym.sym == SDLK_ESCAPE) {
 			stop_game_loop();
 		}
 
+		bg->on_key_down(event);
 
+		break;
+	case SDL_KEYUP:
+		bg->on_key_up(event);
+
+		break;
 	}
 }
 

@@ -1,15 +1,17 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include "../media/Image.hpp"
 
 class Game {
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
+	Image* img = nullptr;
 	bool running = true;
 
 	void update(float deltaTime);
-	void draw();
-	void input_handler(SDL_Event* event);
+	void render();
+	void input_handler(SDL_Event& event);
 public:
 	Game();
 	~Game();

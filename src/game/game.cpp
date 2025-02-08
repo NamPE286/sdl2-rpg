@@ -16,14 +16,18 @@ Game::Game() {
 		throw std::runtime_error("Failed to create window. SDL error: " + std::string(SDL_GetError()));
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, 0);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	if (renderer == nullptr) {
 		throw std::runtime_error("Failed to create renderer. SDL error: " + std::string(SDL_GetError()));
 	}
+
+	img = new Image(renderer, "assets/anime.bmp");
 };
 
 Game::~Game() {
+	delete img;
+
 	SDL_DestroyWindow(window);
 	window = nullptr;
 
@@ -36,14 +40,21 @@ Game::~Game() {
 void Game::update(float deltaTime) {
 	SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0xFF);
 	SDL_RenderClear(renderer);
+
+	img->update();
 }
 
-void Game::draw() {
+void Game::render() {
 	SDL_RenderPresent(renderer);
 }
 
-void Game::input_handler(SDL_Event* event) {
-
+void Game::input_handler(SDL_Event& event) {
+	if (event.type == SDL_QUIT) {
+		stop_game_loop();
+	}
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+		stop_game_loop();
+	}
 }
 
 void Game::init_game_loop() {
@@ -56,18 +67,12 @@ void Game::init_game_loop() {
 		auto frameStartTime = std::chrono::high_resolution_clock::now();
 
 		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT) {
-				stop_game_loop();
-			}
-			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
-				stop_game_loop();
-			}
 
-			input_handler(&event);
+			input_handler(event);
 		}
 
 		update(deltaTime);
-		draw();
+		render();
 
 		auto frameStopTime = std::chrono::high_resolution_clock::now();
 		deltaTime = std::chrono::duration<float, std::chrono::milliseconds::period>(frameStopTime - frameStartTime).count();

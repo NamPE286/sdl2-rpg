@@ -7,7 +7,7 @@ endif()
 
 project(main)
 
-add_executable(main "src/main.cpp"  "src/common.h" "src/game/Game.cpp")
+add_executable(main "src/main.cpp"  "src/common.h" "src/game/Game.cpp" "src/media/Image.cpp")
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
@@ -15,8 +15,11 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 find_package(SDL2 CONFIG REQUIRED)
+find_package(SDL2_image CONFIG REQUIRED)
+
 target_link_libraries(main
     PRIVATE
     $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
     $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
+    $<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
 )

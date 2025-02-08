@@ -6,7 +6,7 @@ Image::Image(SDL_Renderer* renderer, std::string filePath, int x, int y, int w, 
 	texture = IMG_LoadTexture(renderer, filePath.c_str());
 
 	if (texture == nullptr) {
-		throw std::runtime_error("Failed to load " + filePath);
+		throw std::runtime_error("Failed to load image " + filePath + ". Error: " + std::string(IMG_GetError()));
 	}
 
 	rect.x = x, rect.y = y;

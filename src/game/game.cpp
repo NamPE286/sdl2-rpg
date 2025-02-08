@@ -22,7 +22,7 @@ Game::Game() {
 		throw std::runtime_error("Failed to create renderer. SDL error: " + std::string(SDL_GetError()));
 	}
 
-	img = new Image(renderer, "assets/anime.bmp");
+	img = new Image(renderer, "assets/anime.png", 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 1);
 };
 
 Game::~Game() {

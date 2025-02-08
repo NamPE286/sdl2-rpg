@@ -30,8 +30,12 @@ void Game::update() {
 }
 
 void Game::draw() {
-	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	window = nullptr;
+
+	SDL_DestroyRenderer(renderer);
+	renderer = nullptr;
+
 	SDL_Quit();
 }
 

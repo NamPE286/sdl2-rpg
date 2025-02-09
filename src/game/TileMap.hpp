@@ -19,6 +19,6 @@ class TileMap {
 public:
 	TileMap(SDL_Renderer* renderer);
 	~TileMap();
-	void load(int arr[20][20]);
+	void load(int arr[20][15]);
 	void render();
 };

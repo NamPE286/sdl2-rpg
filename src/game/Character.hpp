@@ -13,16 +13,18 @@ enum SpriteDirection {
 };
 
 class Character {
+	struct Sprite {
+		Image* img = nullptr;
+		int direction = SpriteDirection::DOWN;
+		int frameIndex = 0;
+		float frameTime = 0.0f;
+		float scale = 1.0f;
+	} sprite;
 	SDL_Renderer* renderer = nullptr;
-	Image* sprite = nullptr;
 	Vec2 pos, velocity;
 	Uint32 lastKey = 0;
-	int direction = SpriteDirection::DOWN;
-	int spriteFrameIndex = 0;
-	float spriteFrameTime = 0.0f;
-	float scale = 1.0f;
 
-	void update_sprite(int dir);
+	void update_sprite();
 public:
 	Character(SDL_Renderer* renderer, std::string filePath, Vec2 pos = Vec2(0, 0), float scale = 1.0f);
 	~Character();

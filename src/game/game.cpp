@@ -53,8 +53,8 @@ void Game::update(float deltaTime) {
 }
 
 void Game::render() {
-	player->render();
 	tileMap->render();
+	player->render();
 	SDL_RenderPresent(renderer);
 }
 

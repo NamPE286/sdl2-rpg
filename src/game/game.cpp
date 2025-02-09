@@ -28,7 +28,7 @@ Game::Game() {
 		throw std::runtime_error("Failed to create renderer. SDL error: " + std::string(SDL_GetError()));
 	}
 
-	kirito = new Character(renderer, "assets/sprites/characters/kirito.png", Vec2(0, 0), 2);
+	player = new Character(renderer, "assets/sprites/characters/kirito.png", Vec2(0, 0), 2);
 };
 
 Game::~Game() {
@@ -45,7 +45,7 @@ void Game::update(float deltaTime) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
 	SDL_RenderClear(renderer);
 
-	kirito->update(deltaTime);
+	player->update(deltaTime);
 }
 
 void Game::render() {
@@ -63,11 +63,11 @@ void Game::event_handler(SDL_Event& event) {
 			stop_game_loop();
 		}
 
-		kirito->on_key_down(event);
+		player->on_key_down(event);
 
 		break;
 	case SDL_KEYUP:
-		kirito->on_key_up(event);
+		player->on_key_up(event);
 
 		break;
 	}

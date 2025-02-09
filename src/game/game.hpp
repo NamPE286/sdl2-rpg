@@ -6,7 +6,7 @@
 class Game {
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	Character* kirito = nullptr;
+	Character* player = nullptr;
 	bool running = true;
 
 	void update(float deltaTime);

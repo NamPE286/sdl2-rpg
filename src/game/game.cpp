@@ -36,7 +36,7 @@ Game::~Game() {
 };
 
 void Game::update(float deltaTime) {
-	SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0xFF);
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
 	SDL_RenderClear(renderer);
 }
 

@@ -23,6 +23,8 @@ Game::Game() {
 	if (renderer == nullptr) {
 		throw std::runtime_error("Failed to create renderer. SDL error: " + std::string(SDL_GetError()));
 	}
+
+	img = new Image(renderer, "assets/sprites/characters/kirito.png");
 };
 
 Game::~Game() {
@@ -38,6 +40,9 @@ Game::~Game() {
 void Game::update(float deltaTime) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
 	SDL_RenderClear(renderer);
+
+	SDL_Rect rect = { 32 * 1, 32 * 1, 32, 32};
+	img->update(0, 0, &rect);
 }
 
 void Game::render() {

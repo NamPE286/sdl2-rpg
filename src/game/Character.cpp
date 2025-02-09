@@ -1,7 +1,7 @@
 #include "Character.hpp"
 
 const float MOVE_SPEED = 0.2f;
-const int spriteFrame[4] = { 0, 1, 2, 1 };
+const int spriteFrame[4] = { 1, 2, 1, 0 };
 
 void Character::update_sprite() {
 	int unit = 32;
@@ -83,5 +83,6 @@ void Character::on_key_up(SDL_Event& event) {
 	if (event.key.keysym.sym == lastKey) {
 		velocity.x = velocity.y = 0;
 		sprite.frameTime = 0;
+		sprite.frameIndex = 0;
 	}
 }

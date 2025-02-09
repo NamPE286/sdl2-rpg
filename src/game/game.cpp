@@ -71,6 +71,7 @@ void Game::event_handler(SDL_Event& event) {
 }
 
 void Game::init_game_loop() {
+	const int frameDelay = 1000 / MAX_FPS;
 	float deltaTime = 0.0f;
 	
 	running = true;
@@ -86,6 +87,10 @@ void Game::init_game_loop() {
 
 		update(deltaTime);
 		render();
+
+		if (frameDelay > deltaTime) {
+			SDL_Delay(frameDelay - deltaTime);
+		}
 
 		auto frameStopTime = std::chrono::high_resolution_clock::now();
 		deltaTime = std::chrono::duration<float, std::chrono::milliseconds::period>(frameStopTime - frameStartTime).count();

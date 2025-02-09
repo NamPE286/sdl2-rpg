@@ -24,11 +24,11 @@ class Character {
 	Vec2 pos, velocity;
 	Uint32 lastKey = 0;
 
-	void update_sprite();
 public:
 	Character(SDL_Renderer* renderer, std::string filePath, Vec2 pos = Vec2(0, 0), float scale = 1.0f);
 	~Character();
 	void update(float deltaTime);
+	void render();
 	void on_key_down(SDL_Event& event);
 	void on_key_up(SDL_Event& event);
 };

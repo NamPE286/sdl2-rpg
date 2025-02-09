@@ -3,10 +3,9 @@
 const float MOVE_SPEED = 0.1f;
 const int spriteFrame[4] = { 1, 2, 1, 0 };
 
-void Character::update_sprite() {
-	int unit = 32;
-	SDL_Rect rect = { unit * spriteFrame[sprite.frameIndex], unit * sprite.direction, unit, unit };
-	sprite.img->update(pos.x, pos.y, &rect);
+void Character::render() {
+	SDL_Rect rect = { 32 * spriteFrame[sprite.frameIndex], 32 * sprite.direction, 32, 32 };
+	sprite.img->render(pos.x, pos.y, &rect);
 }
 
 Character::Character(SDL_Renderer* renderer, std::string filePath, Vec2 pos, float scale):
@@ -21,8 +20,6 @@ Character::~Character() {
 }
 
 void Character::update(float deltaTime) {
-	update_sprite();
-
 	pos += velocity * deltaTime;
 
 	if (velocity != Vec2(0, 0)) {

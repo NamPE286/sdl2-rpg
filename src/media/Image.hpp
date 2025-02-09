@@ -13,5 +13,5 @@ public:
 
 	Image(SDL_Renderer* renderer, std::string filePath, int w = NULL, int h = NULL, float scale = 1.0f);
 	~Image();
-	void update(int x, int y, SDL_Rect* srcrect = nullptr);
+	void render(int x, int y, SDL_Rect* srcrect = nullptr);
 };

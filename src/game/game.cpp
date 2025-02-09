@@ -29,9 +29,13 @@ Game::Game() {
 	}
 
 	player = new Character(renderer, "assets/sprites/characters/kirito.png");
+	tileMap = new TileMap(renderer);
 };
 
 Game::~Game() {
+	delete player;
+	delete tileMap;
+
 	SDL_DestroyWindow(window);
 	window = nullptr;
 
@@ -49,6 +53,8 @@ void Game::update(float deltaTime) {
 }
 
 void Game::render() {
+	player->render();
+	tileMap->render();
 	SDL_RenderPresent(renderer);
 }
 

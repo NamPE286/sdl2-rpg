@@ -24,7 +24,7 @@ Image::~Image() {
 	SDL_DestroyTexture(texture);
 }
 
-void Image::update(int x, int y, SDL_Rect* srcrect) {
+void Image::render(int x, int y, SDL_Rect* srcrect) {
 	if (srcrect == nullptr) {
 		SDL_Rect rect = { x, y, w, h };
 		SDL_RenderCopy(renderer, texture, nullptr, &rect);

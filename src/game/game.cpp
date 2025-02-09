@@ -23,8 +23,6 @@ Game::Game() {
 	if (renderer == nullptr) {
 		throw std::runtime_error("Failed to create renderer. SDL error: " + std::string(SDL_GetError()));
 	}
-
-	bg = new ScrollingBG(std::shared_ptr<Image>(new Image(renderer, "assets/anime.png", 0, 0, 0, 0, 1)));
 };
 
 Game::~Game() {
@@ -40,8 +38,6 @@ Game::~Game() {
 void Game::update(float deltaTime) {
 	SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0xFF);
 	SDL_RenderClear(renderer);
-
-	bg->update(deltaTime);
 }
 
 void Game::render() {
@@ -59,11 +55,8 @@ void Game::input_handler(SDL_Event& event) {
 			stop_game_loop();
 		}
 
-		bg->on_key_down(event);
-
 		break;
 	case SDL_KEYUP:
-		bg->on_key_up(event);
 
 		break;
 	}

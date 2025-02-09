@@ -1,12 +1,10 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include "ScrollingBG.hpp"
 
 class Game {
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	ScrollingBG* bg = nullptr;
 	bool running = true;
 
 	void update(float deltaTime);

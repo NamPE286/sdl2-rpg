@@ -7,7 +7,7 @@ endif()
 
 project(main)
 
-add_executable(main "src/main.cpp"  "src/common.h" "src/game/Game.cpp" "src/media/Image.cpp" "src/game/ScrollingBG.cpp" "src/geometry/Vec2.cpp")
+add_executable(main "src/main.cpp"  "src/common.h" "src/game/Game.cpp" "src/media/Image.cpp"  "src/geometry/Vec2.cpp")
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

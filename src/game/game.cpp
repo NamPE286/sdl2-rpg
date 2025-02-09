@@ -28,7 +28,7 @@ Game::Game() {
 		throw std::runtime_error("Failed to create renderer. SDL error: " + std::string(SDL_GetError()));
 	}
 
-	player = new Character(renderer, "assets/sprites/characters/kirito.png", Vec2(0, 0), 2);
+	player = new Character(renderer, "assets/sprites/characters/kirito.png");
 };
 
 Game::~Game() {

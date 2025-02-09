@@ -1,6 +1,6 @@
 #include "Character.hpp"
 
-const float MOVE_SPEED = 0.2f;
+const float MOVE_SPEED = 0.1f;
 const int spriteFrame[4] = { 1, 2, 1, 0 };
 
 void Character::update_sprite() {

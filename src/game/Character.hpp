@@ -16,7 +16,10 @@ class Character {
 	SDL_Renderer* renderer = nullptr;
 	Image* sprite = nullptr;
 	Vec2 pos, velocity;
-	int spriteFrame = 0;
+	Uint32 lastKey = 0;
+	int direction = SpriteDirection::DOWN;
+	int spriteFrameIndex = 0;
+	float spriteFrameTime = 0.0f;
 	float scale = 1.0f;
 
 	void update_sprite(int dir);
@@ -24,6 +27,6 @@ public:
 	Character(SDL_Renderer* renderer, std::string filePath, Vec2 pos = Vec2(0, 0), float scale = 1.0f);
 	~Character();
 	void update(float deltaTime);
-	void on_key_down(SDL_Event* event);
-	void on_key_up(SDL_Event* event);
+	void on_key_down(SDL_Event& event);
+	void on_key_up(SDL_Event& event);
 };

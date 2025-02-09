@@ -49,7 +49,7 @@ void Game::render() {
 	SDL_RenderPresent(renderer);
 }
 
-void Game::input_handler(SDL_Event& event) {
+void Game::event_handler(SDL_Event& event) {
 	switch (event.type) {
 	case SDL_QUIT:
 		stop_game_loop();
@@ -60,8 +60,11 @@ void Game::input_handler(SDL_Event& event) {
 			stop_game_loop();
 		}
 
+		kirito->on_key_down(event);
+
 		break;
 	case SDL_KEYUP:
+		kirito->on_key_up(event);
 
 		break;
 	}
@@ -78,7 +81,7 @@ void Game::init_game_loop() {
 
 		while (SDL_PollEvent(&event)) {
 
-			input_handler(event);
+			event_handler(event);
 		}
 
 		update(deltaTime);

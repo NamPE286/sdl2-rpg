@@ -9,6 +9,14 @@ Vec2::Vec2(float _x, float _y) {
 	y = _y;
 }
 
+bool Vec2::operator==(Vec2 const& rhs) {
+	return x == rhs.x && y == rhs.y;
+}
+
+bool Vec2::operator!=(Vec2 const& rhs) {
+	return !(x == rhs.x && y == rhs.y);
+}
+
 Vec2 Vec2::operator+(Vec2 const& rhs) {
 	return Vec2(x + rhs.x, y + rhs.y);
 }

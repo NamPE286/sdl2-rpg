@@ -11,7 +11,7 @@ class Game {
 
 	void update(float deltaTime);
 	void render();
-	void input_handler(SDL_Event& event);
+	void event_handler(SDL_Event& event);
 public:
 	Game();
 	~Game();

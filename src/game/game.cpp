@@ -4,6 +4,7 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
+#include "../geometry/Vec2.hpp"
 #include "../media/Image.hpp"
 #include "../common.h"
 
@@ -12,7 +13,7 @@ Game::Game() {
 		throw std::runtime_error("Failed to initialize SDL. SDL error: " + std::string(SDL_GetError()));
 	}
 
-	window = SDL_CreateWindow("SDL Tutorial", 100, 100, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("RPG", 100, 100, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 
 	if (window == nullptr) {
 		throw std::runtime_error("Failed to create window. SDL error: " + std::string(SDL_GetError()));
@@ -24,7 +25,7 @@ Game::Game() {
 		throw std::runtime_error("Failed to create renderer. SDL error: " + std::string(SDL_GetError()));
 	}
 
-	img = new Image(renderer, "assets/sprites/characters/kirito.png");
+	kirito = new Character(renderer, "assets/sprites/characters/kirito.png", Vec2(0, 0), 2);
 };
 
 Game::~Game() {
@@ -41,8 +42,7 @@ void Game::update(float deltaTime) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
 	SDL_RenderClear(renderer);
 
-	SDL_Rect rect = { 32 * 1, 32 * 1, 32, 32};
-	img->update(0, 0, &rect);
+	kirito->update(deltaTime);
 }
 
 void Game::render() {

@@ -1,12 +1,12 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include "../media/Image.hpp"
+#include "Character.hpp"
 
 class Game {
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	Image* img = nullptr;
+	Character* kirito = nullptr;
 	bool running = true;
 
 	void update(float deltaTime);

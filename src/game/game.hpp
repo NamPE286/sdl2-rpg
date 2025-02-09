@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include "Character.hpp"
+#include "../entities/Character.hpp"
 
 class Game {
 	SDL_Window* window = nullptr;

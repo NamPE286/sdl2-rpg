@@ -62,7 +62,7 @@ void TileMap::load(int lvl[15][20], bool coll[15][20]) {
 	}
 }
 
-void TileMap::collision_handler(Character* c) {
+void TileMap::collision_handler(Character* c) const {
 	std::vector<std::pair<int, int>> dirs = { {0, 0}, {0, 1}, {1, 0}, {1, 1} };
 	std::vector<std::pair<int, int>> offset = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
 

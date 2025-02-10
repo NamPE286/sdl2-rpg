@@ -25,6 +25,6 @@ public:
 	TileMap(SDL_Renderer* renderer);
 	~TileMap();
 	void load(int lvl[15][20], bool coll[15][20]);
-	void collision_handler(Character* c);
+	void collision_handler(Character* c) const;
 	void render();
 };

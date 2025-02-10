@@ -29,6 +29,8 @@ TileMap::TileMap(SDL_Renderer* renderer): renderer(renderer) {
 
 TileMap::~TileMap() {
 	delete texture.field;
+	delete texture.grass;
+	delete texture.stone;
 }
 
 void TileMap::load(int arr[15][20]) {

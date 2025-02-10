@@ -18,7 +18,8 @@ class TileMap {
 	} texture;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Rect src = { 0, 0, 0, 0 }, dest = { 0, 0, 0, 0 };
-	int map[15][20] = {};
+	int textureMap[15][20] = {};
+	int collisionMap[15][20] = {};
 public:
 	TileMap(SDL_Renderer* renderer);
 	~TileMap();

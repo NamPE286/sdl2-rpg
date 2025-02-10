@@ -98,6 +98,8 @@ void TileMap::collision_handler(Character* c) const {
 			else if (c->velocity.y < 0) {
 				c->pos.y = std::ceil(c->pos.y / 32) * 32;
 			}
+
+			c->stopPos = c->pos;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 #include "Character.hpp"
 #include "cmath"
 #include "../common.h"
+#include <iostream>
 
 const float MOVE_SPEED = 0.1f;
 const int spriteFrame[4] = { 1, 2, 1, 0 };
@@ -13,6 +14,9 @@ void Character::render() {
 void Character::stop_movement() {
 	pos = prevPos;
 	velocity = Vec2(0, 0);
+	sprite.frameTime = 0;
+	sprite.frameIndex = 0;
+	moving = false;
 }
 
 Character::Character(SDL_Renderer* renderer, std::string filePath, Vec2 pos, float scale):
@@ -29,12 +33,10 @@ Character::~Character() {
 void Character::update(float deltaTime) {
 	prevPos = pos;
 	pos += velocity * deltaTime;
-	stopPos += velocity * deltaTime;
 
-	if (velocity != Vec2(0, 0)) {
-		sprite.frameTime += deltaTime;
-	}
-	else {
+	if (isKeyDown) {
+		stopPos = pos;
+
 		switch (sprite.direction) {
 		case SpriteDirection::UP:
 			stopPos.y = std::floor(stopPos.y / 32) * 32;
@@ -49,12 +51,48 @@ void Character::update(float deltaTime) {
 			stopPos.x = std::ceil(stopPos.x / 32) * 32;
 			break;
 		}
+	}
+	else {
+		switch (sprite.direction) {
+		case SpriteDirection::UP:
+			if (pos.y < stopPos.y) {
+				pos.y = stopPos.y;
+				stop_movement();
+			}
 
-		stopPos.x = __max(0, stopPos.x);
-		stopPos.y = __max(0, stopPos.y);
+			break;
+		case SpriteDirection::DOWN:
+			if (pos.y > stopPos.y) {
+				pos.y = stopPos.y;
+				stop_movement();
+			}
 
-		stopPos.x = __min(WINDOW_WIDTH / 32, stopPos.x);
-		stopPos.y = __min(WINDOW_WIDTH / 32, stopPos.y);
+			break;
+		case SpriteDirection::LEFT:
+			if (pos.x < stopPos.x) {
+				pos.x = stopPos.x;
+				stop_movement();
+			}
+
+			break;
+		case SpriteDirection::RIGHT:
+			if (pos.x > stopPos.x) {
+				pos.x = stopPos.x;
+				stop_movement();
+			}
+
+			break;
+		}
+	}
+
+	stopPos.x = __max(0, stopPos.x);
+	stopPos.y = __max(0, stopPos.y);
+
+	stopPos.x = __min((WINDOW_WIDTH / 32) * 32, stopPos.x);
+	stopPos.y = __min((WINDOW_WIDTH / 32) * 32, stopPos.y);
+
+	if (velocity != Vec2(0, 0)) {
+		sprite.frameTime += deltaTime;
 	}
 
 	if (sprite.frameTime > 200) {
@@ -65,6 +103,10 @@ void Character::update(float deltaTime) {
 
 void Character::on_key_down(SDL_Event& event) {
 	auto key = event.key.keysym.sym;
+
+	if (moving) {
+		return;
+	}
 
 	if (
 		key == SDLK_UP ||
@@ -77,6 +119,8 @@ void Character::on_key_down(SDL_Event& event) {
 		}
 
 		lastKey = key;
+		moving = true;
+		isKeyDown = true;
 	}
 
 	switch (key) {
@@ -108,9 +152,14 @@ void Character::on_key_down(SDL_Event& event) {
 }
 
 void Character::on_key_up(SDL_Event& event) {
-	if (event.key.keysym.sym == lastKey) {
-		velocity.x = velocity.y = 0;
-		sprite.frameTime = 0;
-		sprite.frameIndex = 0;
+	auto key = event.key.keysym.sym;
+
+	if (
+		key == SDLK_UP ||
+		key == SDLK_DOWN ||
+		key == SDLK_LEFT ||
+		key == SDLK_RIGHT
+	) {
+		isKeyDown = false;
 	}
 }

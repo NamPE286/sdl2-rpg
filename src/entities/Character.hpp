@@ -22,6 +22,8 @@ class Character {
 	} sprite;
 	SDL_Renderer* renderer = nullptr;
 	Uint32 lastKey = 0;
+	bool isKeyDown = false;
+	bool moving = false;
 
 public:
 	Vec2 pos, prevPos, stopPos, velocity;

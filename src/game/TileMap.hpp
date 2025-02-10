@@ -10,14 +10,14 @@ constexpr int MAP_W = WINDOW_WIDTH / 32;
 constexpr int MAP_H = WINDOW_HEIGHT / 32;
 
 enum Tile {
-	FIELD,
 	GRASS,
+	DIRT,
 	STONE
 };
 
 class TileMap {
 	struct Texture {
-		Image* field = nullptr;
+		Image* dirt = nullptr;
 		Image* grass = nullptr;
 		Image* stone = nullptr;
 	} texture;
@@ -28,7 +28,7 @@ class TileMap {
 public:
 	TileMap(SDL_Renderer* renderer);
 	~TileMap();
-	void load(int lvl[15][20], bool coll[15][20]);
+	void load(int lvl[MAP_H][MAP_W], bool coll[MAP_H][MAP_W]);
 	void collision_handler(Character* c) const;
 	void render();
 };

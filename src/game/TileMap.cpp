@@ -8,10 +8,10 @@ int lvl[MAP_H][MAP_W] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -40,7 +40,7 @@ bool coll[MAP_H][MAP_W] = {
 };
 
 TileMap::TileMap(SDL_Renderer* renderer): renderer(renderer) {
-	texture.field = new Image(renderer, "assets/textures/FieldsTile_01.png");
+	texture.dirt = new Image(renderer, "assets/textures/FieldsTile_01.png");
 	texture.grass = new Image(renderer, "assets/textures/FieldsTile_38.png");
 	texture.stone = new Image(renderer, "assets/textures/Stone.png");
 
@@ -48,7 +48,7 @@ TileMap::TileMap(SDL_Renderer* renderer): renderer(renderer) {
 }
 
 TileMap::~TileMap() {
-	delete texture.field;
+	delete texture.dirt;
 	delete texture.grass;
 	delete texture.stone;
 }
@@ -107,11 +107,11 @@ void TileMap::collision_handler(Character* c) const {
 void TileMap::render() {
 	for (int i = 0; i < MAP_H; i++) {
 		for (int j = 0; j < MAP_W; j++) {
-			texture.field->render(32 * j, 32 * i);
+			texture.grass->render(32 * j, 32 * i);
 
 			switch (textureMap[i][j]) {
-			case Tile::GRASS:
-				texture.grass->render(32 * j, 32 * i);
+			case Tile::DIRT:
+				texture.dirt->render(32 * j, 32 * i);
 				break;
 			case Tile::STONE:
 				texture.stone->render(32 * j, 32 * i);

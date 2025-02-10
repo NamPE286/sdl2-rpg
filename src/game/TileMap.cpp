@@ -3,7 +3,7 @@
 #include <vector>
 #include <cmath>
 
-int lvl[15][20] = {
+int lvl[MAP_H][MAP_W] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -21,7 +21,7 @@ int lvl[15][20] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
 
-bool coll[15][20] = {
+bool coll[MAP_H][MAP_W] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -53,9 +53,9 @@ TileMap::~TileMap() {
 	delete texture.stone;
 }
 
-void TileMap::load(int lvl[15][20], bool coll[15][20]) {
-	for (int i = 0; i < 15; i++) {
-		for (int j = 0; j < 20; j++) {
+void TileMap::load(int lvl[MAP_H][MAP_W], bool coll[MAP_H][MAP_W]) {
+	for (int i = 0; i < MAP_H; i++) {
+		for (int j = 0; j < MAP_W; j++) {
 			textureMap[i][j] = lvl[i][j];
 			collisionMap[i][j] = coll[i][j];
 		}
@@ -76,11 +76,11 @@ void TileMap::collision_handler(Character* c) const {
 		int x = (c->pos.x + 32 * dirs[i].first + offset[i].first) / 32;
 		int y = (c->pos.y + 32 * dirs[i].second + offset[i].second) / 32;
 
-		if (!(0 <= x && x < 20)) {
+		if (!(0 <= x && x < MAP_W)) {
 			continue;
 		}
 
-		if (!(0 <= y && y < 15)) {
+		if (!(0 <= y && y < MAP_H)) {
 			continue;
 		}
 
@@ -103,8 +103,8 @@ void TileMap::collision_handler(Character* c) const {
 }
 
 void TileMap::render() {
-	for (int i = 0; i < 15; i++) {
-		for (int j = 0; j < 20; j++) {
+	for (int i = 0; i < MAP_H; i++) {
+		for (int j = 0; j < MAP_W; j++) {
 			texture.field->render(32 * j, 32 * i);
 
 			switch (textureMap[i][j]) {

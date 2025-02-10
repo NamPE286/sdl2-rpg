@@ -1,4 +1,6 @@
 #include "Character.hpp"
+#include "cmath"
+#include "../common.h"
 
 const float MOVE_SPEED = 0.1f;
 const int spriteFrame[4] = { 1, 2, 1, 0 };
@@ -27,9 +29,32 @@ Character::~Character() {
 void Character::update(float deltaTime) {
 	prevPos = pos;
 	pos += velocity * deltaTime;
+	stopPos += velocity * deltaTime;
 
 	if (velocity != Vec2(0, 0)) {
 		sprite.frameTime += deltaTime;
+	}
+	else {
+		switch (sprite.direction) {
+		case SpriteDirection::UP:
+			stopPos.y = std::floor(stopPos.y / 32) * 32;
+			break;
+		case SpriteDirection::DOWN:
+			stopPos.y = std::ceil(stopPos.y / 32) * 32;
+			break;
+		case SpriteDirection::LEFT:
+			stopPos.x = std::floor(stopPos.x / 32) * 32;
+			break;
+		case SpriteDirection::RIGHT:
+			stopPos.x = std::ceil(stopPos.x / 32) * 32;
+			break;
+		}
+
+		stopPos.x = __max(0, stopPos.x);
+		stopPos.y = __max(0, stopPos.y);
+
+		stopPos.x = __min(WINDOW_WIDTH / 32, stopPos.x);
+		stopPos.y = __min(WINDOW_WIDTH / 32, stopPos.y);
 	}
 
 	if (sprite.frameTime > 200) {

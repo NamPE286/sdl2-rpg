@@ -21,11 +21,10 @@ class Character {
 		float scale = 1.0f;
 	} sprite;
 	SDL_Renderer* renderer = nullptr;
-	Vec2 velocity;
 	Uint32 lastKey = 0;
 
 public:
-	Vec2 pos, prevPos;
+	Vec2 pos, prevPos, velocity;
 
 	Character(SDL_Renderer* renderer, std::string filePath, Vec2 pos = Vec2(0, 0), float scale = 1.0f);
 	~Character();

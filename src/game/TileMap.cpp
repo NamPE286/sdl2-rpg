@@ -1,7 +1,7 @@
 #include "TileMap.hpp"
 #include <SDL2/SDL_image.h>
 #include <vector>
-#include <iostream>
+#include <cmath>
 
 int lvl[15][20] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -9,8 +9,8 @@ int lvl[15][20] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -23,12 +23,12 @@ int lvl[15][20] = {
 
 bool coll[15][20] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -54,8 +54,8 @@ TileMap::~TileMap() {
 }
 
 void TileMap::load(int lvl[15][20], bool coll[15][20]) {
-	for (size_t i = 0; i < 15; i++) {
-		for (size_t j = 0; j < 20; j++) {
+	for (int i = 0; i < 15; i++) {
+		for (int j = 0; j < 20; j++) {
 			textureMap[i][j] = lvl[i][j];
 			collisionMap[i][j] = coll[i][j];
 		}
@@ -73,26 +73,38 @@ void TileMap::collision_handler(Character* c) const {
 	c->pos.y = __min(32 * 14, c->pos.y);
 
 	for(size_t i = 0; i < 4; i++) {
-		int x = (c->pos.y + 32 * dirs[i].second + offset[i].second) / 32;
-		int y = (c->pos.x + 32 * dirs[i].first + offset[i].first) / 32;
+		int x = (c->pos.x + 32 * dirs[i].first + offset[i].first) / 32;
+		int y = (c->pos.y + 32 * dirs[i].second + offset[i].second) / 32;
 
-		if (!(0 <= x && x < 15)) {
+		if (!(0 <= x && x < 20)) {
 			continue;
 		}
 
-		if (!(0 <= y && y < 20)) {
+		if (!(0 <= y && y < 15)) {
 			continue;
 		}
 
-		if (collisionMap[x][y]) {
-			c->stop_movement();
+		if (collisionMap[y][x]) {
+			if (c->velocity.x > 0) {
+				c->pos.x = std::floor(c->pos.x / 32) * 32;
+			}
+			else if (c->velocity.x < 0) {
+				c->pos.x = std::ceil(c->pos.x / 32) * 32;
+			}
+
+			if (c->velocity.y > 0) {
+				c->pos.y = std::floor(c->pos.y / 32) * 32;
+			}
+			else if (c->velocity.y < 0) {
+				c->pos.y = std::ceil(c->pos.y / 32) * 32;
+			}
 		}
 	}
 }
 
 void TileMap::render() {
-	for (size_t i = 0; i < 15; i++) {
-		for (size_t j = 0; j < 20; j++) {
+	for (int i = 0; i < 15; i++) {
+		for (int j = 0; j < 20; j++) {
 			texture.field->render(32 * j, 32 * i);
 
 			switch (textureMap[i][j]) {

@@ -8,6 +8,11 @@ void Character::render() {
 	sprite.img->render(pos.x, pos.y, &rect);
 }
 
+void Character::stop_movement() {
+	pos = prevPos;
+	velocity = Vec2(0, 0);
+}
+
 Character::Character(SDL_Renderer* renderer, std::string filePath, Vec2 pos, float scale):
 	renderer(renderer), pos(pos)
 {
@@ -20,6 +25,7 @@ Character::~Character() {
 }
 
 void Character::update(float deltaTime) {
+	prevPos = pos;
 	pos += velocity * deltaTime;
 
 	if (velocity != Vec2(0, 0)) {

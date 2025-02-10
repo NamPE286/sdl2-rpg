@@ -21,14 +21,17 @@ class Character {
 		float scale = 1.0f;
 	} sprite;
 	SDL_Renderer* renderer = nullptr;
-	Vec2 pos, velocity;
+	Vec2 velocity;
 	Uint32 lastKey = 0;
 
 public:
+	Vec2 pos, prevPos;
+
 	Character(SDL_Renderer* renderer, std::string filePath, Vec2 pos = Vec2(0, 0), float scale = 1.0f);
 	~Character();
 	void update(float deltaTime);
 	void render();
+	void stop_movement();
 	void on_key_down(SDL_Event& event);
 	void on_key_up(SDL_Event& event);
 };

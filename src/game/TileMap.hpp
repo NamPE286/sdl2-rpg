@@ -3,6 +3,7 @@
 #include <memory>
 #include <SDL2/SDL.h>
 #include "../media/Image.hpp"
+#include "../entities/Character.hpp"
 
 enum Tile {
 	FIELD,
@@ -23,6 +24,7 @@ class TileMap {
 public:
 	TileMap(SDL_Renderer* renderer);
 	~TileMap();
-	void load(int arr[15][20]);
+	void load(int lvl[15][20], bool coll[15][20]);
+	void collision_handler(Character* c);
 	void render();
 };

@@ -50,6 +50,7 @@ void Game::update(float deltaTime) {
 	SDL_RenderClear(renderer);
 
 	player->update(deltaTime);
+	tileMap->collision_handler(player);
 }
 
 void Game::render() {

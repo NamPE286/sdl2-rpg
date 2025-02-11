@@ -7,8 +7,10 @@
 class Game {
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
+	SDL_Texture* texture = nullptr;
 	Character* player = nullptr;
 	TileMap* tileMap = nullptr;
+
 	bool running = true;
 
 	void update(float deltaTime);

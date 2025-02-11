@@ -28,6 +28,7 @@ Game::Game() {
 		throw std::runtime_error("Failed to create renderer. SDL error: " + std::string(SDL_GetError()));
 	}
 
+	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH, WINDOW_HEIGHT);
 	player = new Character(renderer, "assets/sprites/characters/kirito.png");
 	tileMap = new TileMap(renderer);
 };
@@ -42,20 +43,30 @@ Game::~Game() {
 	SDL_DestroyRenderer(renderer);
 	renderer = nullptr;
 
+	SDL_DestroyTexture(texture);
+	texture = nullptr;
+
 	SDL_Quit();
 };
 
 void Game::update(float deltaTime) {
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
-	SDL_RenderClear(renderer);
-
 	player->update(deltaTime);
 	tileMap->collision_handler(player);
 }
 
 void Game::render() {
+	SDL_SetRenderTarget(renderer, texture);
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
+	SDL_RenderClear(renderer);
+
 	tileMap->render();
 	player->render();
+
+	SDL_SetRenderTarget(renderer, nullptr);
+
+	SDL_Rect rect = { 0, 0, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 };
+
+	SDL_RenderCopy(renderer, texture, &rect, nullptr);
 	SDL_RenderPresent(renderer);
 }
 

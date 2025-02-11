@@ -29,7 +29,7 @@ Game::Game() {
 	}
 
 	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH, WINDOW_HEIGHT);
-	player = new Character(renderer, "assets/sprites/characters/kirito.png");
+	player = new Character(renderer, "assets/sprites/characters/asuna.png");
 	tileMap = new TileMap(renderer);
 	camera = new Camera(renderer, texture, &player->pos, 320, 240);
 };

@@ -64,7 +64,16 @@ void Game::render() {
 
 	SDL_SetRenderTarget(renderer, nullptr);
 
-	SDL_Rect rect = { 0, 0, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 };
+	const int CAMERA_WIDTH = WINDOW_WIDTH / 4;
+	const int CAMERA_HEIGHT = WINDOW_HEIGHT / 4;
+
+	SDL_Rect rect = { player->pos.x - CAMERA_WIDTH / 2 + 16, player->pos.y - CAMERA_HEIGHT / 2 + 16, CAMERA_WIDTH, CAMERA_HEIGHT };
+
+	rect.x = __max(0, rect.x);
+	rect.x = __min(WINDOW_WIDTH - CAMERA_WIDTH, rect.x);
+
+	rect.y = __max(0, rect.y);
+	rect.y = __min(WINDOW_HEIGHT - CAMERA_HEIGHT, rect.y);
 
 	SDL_RenderCopy(renderer, texture, &rect, nullptr);
 	SDL_RenderPresent(renderer);

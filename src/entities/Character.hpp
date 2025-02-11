@@ -22,10 +22,9 @@ class Character {
 	} sprite;
 	SDL_Renderer* renderer = nullptr;
 	Uint32 lastKey = 0;
-	bool moving = false;
-
 public:
 	bool isKeyDown = false;
+	bool moving = false;
 	Vec2 pos, stopPos, velocity;
 
 	Character(SDL_Renderer* renderer, std::string filePath, Vec2 pos = Vec2(0, 0), float scale = 1.0f);

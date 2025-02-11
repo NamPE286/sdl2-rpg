@@ -64,53 +64,53 @@ void TileMap::load(int lvl[MAP_H][MAP_W], bool coll[MAP_H][MAP_W]) {
 }
 
 void TileMap::collision_handler(Character* c) const {
-	std::vector<std::pair<int, int>> dirs = { {0, 0}, {0, 1}, {1, 0}, {1, 1} };
-	std::vector<std::pair<int, int>> offset = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
+	int x = c->pos.x / 32;
+	int y = c->pos.y / 32;
 
 	if (c->pos.x < 0) {
 		c->pos.x = 0;
 		c->stop_movement();
+
+		return;
 	}
-	else if (c->pos.x > 32 * (MAP_W - 1)) {
+	
+	if (c->pos.x > 32 * (MAP_W - 1)) {
 		c->pos.x = 32 * (MAP_W - 1);
 		c->stop_movement();
+
+		return;
 	}
 
 	if (c->pos.y < 0) {
 		c->pos.y = 0;
 		c->stop_movement();
+
+		return;
 	}
-	else if (c->pos.y > 32 * (MAP_H - 1)) {
+	
+	if (c->pos.y > 32 * (MAP_H - 1)) {
 		c->pos.y = 32 * (MAP_H - 1);
 		c->stop_movement();
+
+		return;
 	}
 
-	std::cout << c->pos.x << '\n';
-
-	for(size_t i = 0; i < 4; i++) {
-		int x = (c->pos.x + 32 * dirs[i].first + offset[i].first) / 32;
-		int y = (c->pos.y + 32 * dirs[i].second + offset[i].second) / 32;
-
-		if (collisionMap[y][x]) {
-			if (c->velocity.x > 0) {
-				c->pos.x = std::floor(c->pos.x / 32) * 32;
-			}
-			else if (c->velocity.x < 0) {
-				c->pos.x = std::ceil(c->pos.x / 32) * 32;
-			}
-
-			if (c->velocity.y > 0) {
-				c->pos.y = std::floor(c->pos.y / 32) * 32;
-			}
-			else if (c->velocity.y < 0) {
-				c->pos.y = std::ceil(c->pos.y / 32) * 32;
-			}
-
-			c->stopPos = c->pos;
-			c->stop_movement();
-
-			break;
-		}
+	if (c->velocity.x > 0 && collisionMap[y][x + 1]) {
+		c->pos.x = 32 * x;
+		c->stop_movement();
+	
+	}
+	else if (c->velocity.x < 0 && collisionMap[y][x]) {
+		c->pos.x = 32 * (x + 1);
+		c->stop_movement();
+	}
+	else if (c->velocity.y > 0 && collisionMap[y + 1][x]) {
+		c->pos.y = 32 * y;
+		c->stop_movement();
+	}
+	else if (c->velocity.y < 0 && collisionMap[y][x]) {
+		c->pos.y = 32 * (y + 1);
+		c->stop_movement();
 	}
 }
 

@@ -53,8 +53,6 @@ Game::~Game() {
 void Game::update(float deltaTime) {
 	player->update(deltaTime);
 	tileMap->collision_handler(player);
-
-	//std::cout << player->pos.x << ' ' << player->pos.y << '\n';
 }
 
 void Game::render() {

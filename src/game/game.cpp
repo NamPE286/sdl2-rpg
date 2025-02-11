@@ -31,6 +31,7 @@ Game::Game() {
 	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH, WINDOW_HEIGHT);
 	player = new Character(renderer, "assets/sprites/characters/kirito.png");
 	tileMap = new TileMap(renderer);
+	camera = new Camera(renderer, texture, &player->pos, 320, 240);
 };
 
 Game::~Game() {
@@ -64,18 +65,8 @@ void Game::render() {
 
 	SDL_SetRenderTarget(renderer, nullptr);
 
-	const int CAMERA_WIDTH = WINDOW_WIDTH / 4;
-	const int CAMERA_HEIGHT = WINDOW_HEIGHT / 4;
+	camera->render();
 
-	SDL_Rect rect = { player->pos.x - CAMERA_WIDTH / 2 + 16, player->pos.y - CAMERA_HEIGHT / 2 + 16, CAMERA_WIDTH, CAMERA_HEIGHT };
-
-	rect.x = __max(0, rect.x);
-	rect.x = __min(WINDOW_WIDTH - CAMERA_WIDTH, rect.x);
-
-	rect.y = __max(0, rect.y);
-	rect.y = __min(WINDOW_HEIGHT - CAMERA_HEIGHT, rect.y);
-
-	SDL_RenderCopy(renderer, texture, &rect, nullptr);
 	SDL_RenderPresent(renderer);
 }
 

@@ -1,7 +1,6 @@
 #include "Character.hpp"
 #include "cmath"
 #include "../common.h"
-#include <iostream>
 
 const float MOVE_SPEED = 0.1f;
 const int spriteFrame[4] = { 1, 2, 1, 0 };
@@ -12,7 +11,6 @@ void Character::render() {
 }
 
 void Character::stop_movement() {
-	pos = prevPos;
 	velocity = Vec2(0, 0);
 	sprite.frameTime = 0;
 	sprite.frameIndex = 0;
@@ -31,7 +29,6 @@ Character::~Character() {
 }
 
 void Character::update(float deltaTime) {
-	prevPos = pos;
 	pos += velocity * deltaTime;
 
 	if (isKeyDown) {

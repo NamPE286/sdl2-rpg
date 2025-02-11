@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 int lvl[MAP_H][MAP_W] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 },
@@ -9,7 +10,7 @@ int lvl[MAP_H][MAP_W] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 2, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -27,7 +28,7 @@ bool coll[MAP_H][MAP_W] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -66,23 +67,29 @@ void TileMap::collision_handler(Character* c) const {
 	std::vector<std::pair<int, int>> dirs = { {0, 0}, {0, 1}, {1, 0}, {1, 1} };
 	std::vector<std::pair<int, int>> offset = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
 
-	c->pos.x = __max(0, c->pos.x);
-	c->pos.x = __min(32 * 19, c->pos.x);
+	if (c->pos.x < 0) {
+		c->pos.x = 0;
+		c->stop_movement();
+	}
+	else if (c->pos.x > 32 * (MAP_W - 1)) {
+		c->pos.x = 32 * (MAP_W - 1);
+		c->stop_movement();
+	}
 
-	c->pos.y = __max(0, c->pos.y);
-	c->pos.y = __min(32 * 14, c->pos.y);
+	if (c->pos.y < 0) {
+		c->pos.y = 0;
+		c->stop_movement();
+	}
+	else if (c->pos.y > 32 * (MAP_H - 1)) {
+		c->pos.y = 32 * (MAP_H - 1);
+		c->stop_movement();
+	}
+
+	std::cout << c->pos.x << '\n';
 
 	for(size_t i = 0; i < 4; i++) {
 		int x = (c->pos.x + 32 * dirs[i].first + offset[i].first) / 32;
 		int y = (c->pos.y + 32 * dirs[i].second + offset[i].second) / 32;
-
-		if (!(0 <= x && x < MAP_W)) {
-			continue;
-		}
-
-		if (!(0 <= y && y < MAP_H)) {
-			continue;
-		}
 
 		if (collisionMap[y][x]) {
 			if (c->velocity.x > 0) {
@@ -100,6 +107,9 @@ void TileMap::collision_handler(Character* c) const {
 			}
 
 			c->stopPos = c->pos;
+			c->stop_movement();
+
+			break;
 		}
 	}
 }

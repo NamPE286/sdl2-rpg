@@ -19,7 +19,7 @@ class TileMap {
 	struct Texture {
 		Image* dirt = nullptr;
 		Image* grass = nullptr;
-		Image* stone = nullptr;
+		Image* tree = nullptr;
 	} texture;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Rect src = { 0, 0, 0, 0 }, dest = { 0, 0, 0, 0 };

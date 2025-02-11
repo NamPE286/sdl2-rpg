@@ -41,9 +41,9 @@ bool coll[MAP_H][MAP_W] = {
 };
 
 TileMap::TileMap(SDL_Renderer* renderer): renderer(renderer) {
-	texture.dirt = new Image(renderer, "assets/textures/FieldsTile_01.png");
-	texture.grass = new Image(renderer, "assets/textures/FieldsTile_38.png");
-	texture.stone = new Image(renderer, "assets/textures/Stone.png");
+	texture.dirt = new Image(renderer, "assets/textures/dirt.png");
+	texture.grass = new Image(renderer, "assets/textures/grass.png");
+	texture.tree = new Image(renderer, "assets/textures/tree.png");
 
 	load(lvl, coll);
 }
@@ -51,7 +51,7 @@ TileMap::TileMap(SDL_Renderer* renderer): renderer(renderer) {
 TileMap::~TileMap() {
 	delete texture.dirt;
 	delete texture.grass;
-	delete texture.stone;
+	delete texture.tree;
 }
 
 void TileMap::load(int lvl[MAP_H][MAP_W], bool coll[MAP_H][MAP_W]) {
@@ -124,7 +124,7 @@ void TileMap::render() {
 				texture.dirt->render(32 * j, 32 * i);
 				break;
 			case Tile::STONE:
-				texture.stone->render(32 * j, 32 * i);
+				texture.tree->render(32 * j, 32 * i);
 				break;
 			}
 		}

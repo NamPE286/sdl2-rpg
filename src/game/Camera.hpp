@@ -16,6 +16,6 @@ public:
 		Vec2* pos,
 		int w,
 		int h
-);
+	);
 	void render();
 };

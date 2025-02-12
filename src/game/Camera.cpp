@@ -1,8 +1,13 @@
 #include "Camera.hpp"
 #include "../common.h"
 
-Camera::Camera(SDL_Renderer* renderer, SDL_Texture* texture, Vec2* pos, int w, int h):
-	renderer(renderer), texture(texture), pos(pos), w(w), h(h)
+Camera::Camera(
+	SDL_Renderer* const renderer, 
+	SDL_Texture* const texture, 
+	Vec2* pos, 
+	int w, 
+	int h
+): renderer(renderer), texture(texture), pos(pos), w(w), h(h)
 {}
 
 void Camera::render() {

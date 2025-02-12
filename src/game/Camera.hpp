@@ -4,8 +4,8 @@
 #include "../geometry/Vec2.hpp"
 
 class Camera {
-	SDL_Renderer* const renderer = nullptr;
-	SDL_Texture* const texture = nullptr;
+	SDL_Renderer* const renderer;
+	SDL_Texture* const texture;
 	Vec2* pos = nullptr;
 	int w = 0, h = 0;
 

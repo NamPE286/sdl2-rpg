@@ -20,7 +20,7 @@ class Character {
 		float frameTime = 0.0f;
 		float scale = 1.0f;
 	} sprite;
-	SDL_Renderer* renderer = nullptr;
+	SDL_Renderer* const renderer;
 	Uint32 lastKey = 0;
 public:
 	bool isKeyDown = false;

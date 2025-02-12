@@ -40,7 +40,7 @@ bool coll[MAP_H][MAP_W] = {
 	{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
 
-TileMap::TileMap(SDL_Renderer* renderer): renderer(renderer) {
+TileMap::TileMap(SDL_Renderer* const renderer): renderer(renderer) {
 	texture.dirt = new Image(renderer, "assets/textures/dirt.png");
 	texture.grass = new Image(renderer, "assets/textures/grass.png");
 	texture.tree = new Image(renderer, "assets/textures/tree.png");

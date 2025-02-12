@@ -2,7 +2,13 @@
 #include <stdexcept>
 #include <SDL2/SDL_image.h>
 
-Image::Image(SDL_Renderer* renderer, std::string filePath, int _w, int _h, float scale): renderer(renderer), scale(scale) {
+Image::Image(
+	SDL_Renderer* const renderer, 
+	const std::string filePath, 
+	int _w, 
+	int _h, 
+	float scale
+): renderer(renderer), scale(scale) {
 	texture = IMG_LoadTexture(renderer, filePath.c_str());
 
 	if (texture == nullptr) {

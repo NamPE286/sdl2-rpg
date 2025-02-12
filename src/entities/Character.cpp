@@ -17,8 +17,12 @@ void Character::stop_movement() {
 	moving = false;
 }
 
-Character::Character(SDL_Renderer* renderer, std::string filePath, Vec2 pos, float scale):
-	renderer(renderer), pos(pos)
+Character::Character(
+	SDL_Renderer* const renderer,
+	const std::string filePath,
+	Vec2 pos,
+	float scale
+) : renderer(renderer), pos(pos)
 {
 	sprite.img = new Image(renderer, filePath, 0, 0, scale);
 	sprite.scale = scale;
@@ -28,7 +32,7 @@ Character::~Character() {
 	delete sprite.img;
 }
 
-void Character::update(float deltaTime) {
+void Character::update(const float deltaTime) {
 	pos += velocity * deltaTime;
 
 	if (isKeyDown) {
@@ -98,7 +102,7 @@ void Character::update(float deltaTime) {
 	}
 }
 
-void Character::on_key_down(SDL_Event& event) {
+void Character::on_key_down(const SDL_Event& event) {
 	auto key = event.key.keysym.sym;
 
 	if (moving) {
@@ -148,7 +152,7 @@ void Character::on_key_down(SDL_Event& event) {
 	}
 }
 
-void Character::on_key_up(SDL_Event& event) {
+void Character::on_key_up(const SDL_Event& event) {
 	auto key = event.key.keysym.sym;
 
 	if (

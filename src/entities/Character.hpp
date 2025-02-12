@@ -27,11 +27,16 @@ public:
 	bool moving = false;
 	Vec2 pos, stopPos, velocity;
 
-	Character(SDL_Renderer* renderer, std::string filePath, Vec2 pos = Vec2(0, 0), float scale = 1.0f);
+	Character(
+		SDL_Renderer* const renderer,
+		const std::string filePath, 
+		Vec2 pos = Vec2(0, 0), 
+		float scale = 1.0f
+	);
 	~Character();
-	void update(float deltaTime);
+	void update(const float deltaTime);
 	void render();
 	void stop_movement();
-	void on_key_down(SDL_Event& event);
-	void on_key_up(SDL_Event& event);
+	void on_key_down(const SDL_Event& event);
+	void on_key_up(const SDL_Event& event);
 };

@@ -6,7 +6,6 @@
 #include <memory>
 #include "../geometry/Vec2.hpp"
 #include "../media/Image.hpp"
-#include "../ui/Dialogue.hpp"
 #include "../common.h"
 
 Game::Game() {

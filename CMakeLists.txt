@@ -14,6 +14,8 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET main PROPERTY CXX_STANDARD 20)
 endif()
 
+add_compile_options(/external:anglebrackets /external:W0)
+
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2_image CONFIG REQUIRED)
 find_package(SDL2_ttf CONFIG REQUIRED)

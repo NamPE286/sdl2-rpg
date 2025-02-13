@@ -64,8 +64,8 @@ void TileMap::load(int lvl[MAP_H][MAP_W], bool coll[MAP_H][MAP_W]) {
 }
 
 void TileMap::collision_handler(Character* c) const {
-	int x = c->pos.x / 32;
-	int y = c->pos.y / 32;
+	int x = (int)c->pos.x / 32;
+	int y = (int)c->pos.y / 32;
 
 	if (c->pos.x < 0) {
 		c->pos.x = 0;
@@ -96,20 +96,20 @@ void TileMap::collision_handler(Character* c) const {
 	}
 
 	if (c->velocity.x > 0 && collisionMap[y][x + 1]) {
-		c->pos.x = 32 * x;
+		c->pos.x = float(32 * x);
 		c->stop_movement();
 	
 	}
 	else if (c->velocity.x < 0 && collisionMap[y][x]) {
-		c->pos.x = 32 * (x + 1);
+		c->pos.x = float(32 * (x + 1));
 		c->stop_movement();
 	}
 	else if (c->velocity.y > 0 && collisionMap[y + 1][x]) {
-		c->pos.y = 32 * y;
+		c->pos.y = float(32 * y);
 		c->stop_movement();
 	}
 	else if (c->velocity.y < 0 && collisionMap[y][x]) {
-		c->pos.y = 32 * (y + 1);
+		c->pos.y = float(32 * (y + 1));
 		c->stop_movement();
 	}
 }

@@ -110,7 +110,7 @@ void Game::init_game_loop() {
 		render();
 
 		if (frameDelay > deltaTime) {
-			SDL_Delay(frameDelay - deltaTime);
+			SDL_Delay(Uint32(frameDelay - deltaTime));
 		}
 
 		auto frameStopTime = std::chrono::high_resolution_clock::now();

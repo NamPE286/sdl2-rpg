@@ -36,7 +36,7 @@ void Image::render(int x, int y, SDL_Rect* srcrect) {
 		SDL_RenderCopy(renderer, texture, nullptr, &rect);
 	}
 	else {
-		SDL_Rect rect = { x, y, (float)srcrect->w * scale, (float)srcrect->h * scale };
+		SDL_Rect rect = { x, y, int((float)srcrect->w * scale), int((float)srcrect->h * scale) };
 		SDL_RenderCopy(renderer, texture, srcrect, &rect);
 	}
 }

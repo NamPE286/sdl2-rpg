@@ -7,7 +7,7 @@ const int spriteFrame[4] = { 1, 2, 1, 0 };
 
 void Character::render() {
 	SDL_Rect rect = { 32 * spriteFrame[sprite.frameIndex], 32 * sprite.direction, 32, 32 };
-	sprite.img->render(pos.x, pos.y, &rect);
+	sprite.img->render((int)pos.x, (int)pos.y, &rect);
 }
 
 void Character::stop_movement() {

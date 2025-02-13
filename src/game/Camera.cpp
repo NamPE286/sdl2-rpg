@@ -11,7 +11,7 @@ Camera::Camera(
 {}
 
 void Camera::render() {
-	SDL_Rect rect = { pos->x - w / 2 + 16, pos->y - h / 2 + 16, w, h };
+	SDL_Rect rect = { (int)pos->x - w / 2 + 16, (int)pos->y - h / 2 + 16, w, h };
 
 	rect.x = __max(0, rect.x);
 	rect.x = __min(WINDOW_WIDTH - w, rect.x);
